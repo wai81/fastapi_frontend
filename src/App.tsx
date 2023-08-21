@@ -14,10 +14,29 @@ import GlobalStyles from "@mui/material/GlobalStyles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { BrowserRouter, Route, Routes, Outlet } from "react-router-dom";
 import routerBindings, { NavigateToResource, CatchAllNavigate, UnsavedChangesNotifier, DocumentTitleHandler } from "@refinedev/react-router-v6";
-import dataProvider from "@refinedev/simple-rest";
+//import dataProvider from "@refinedev/simple-rest";
 import { ColorModeContextProvider } from "./contexts/color-mode";
 import { Header } from "./components/header";
 import { MuiInferencer } from "@refinedev/inferencer/mui";
+import {dataProvider} from "./providers/data-provider";
+import axios, {AxiosRequestConfig} from "axios";
+import {API_URL, TOKEN_KEY} from "./constants";
+
+const axiosInstance = axios.create();
+axiosInstance.interceptors.request.use((request: AxiosRequestConfig) => {
+    const token = localStorage.getItem(TOKEN_KEY);
+    if (token) {
+        if (request.headers) {
+            request.headers["Authorization"] = `Bearer ${token}`;
+        } else {
+            request.headers = {
+                Authorization: `Bearer ${token}`,
+            };
+        }
+    }
+    return request;
+});
+
 
 function App() {
     return (
@@ -29,9 +48,7 @@ function App() {
                     <RefineSnackbarProvider>
                         <Refine
                             routerProvider={routerBindings}
-                            dataProvider={dataProvider(
-                                "https://api.fake-rest.refine.dev",
-                                )}
+                            dataProvider={dataProvider(API_URL, axiosInstance)}
                             options={{
                                     syncWithLocation: true,
                                     warnWhenUnsavedChanges: true,
