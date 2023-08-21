@@ -1,4 +1,4 @@
-import { IOrganization } from './IOrganization';
+// import { IOrganization } from './IOrganization';
 
 export interface IUser {
   id: string;
@@ -9,8 +9,8 @@ export interface IUser {
   is_superuser: boolean;
   is_active: boolean;
   avatar?: string;
-  organization: IOrganization;
-  access_tors: [IOrganization];
+  // organization_id: number;
+  // access_tors: [IOrganization];
   created_at: string;
 }
 

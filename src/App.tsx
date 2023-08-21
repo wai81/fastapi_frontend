@@ -14,13 +14,15 @@ import GlobalStyles from "@mui/material/GlobalStyles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { BrowserRouter, Route, Routes, Outlet } from "react-router-dom";
 import routerBindings, { NavigateToResource, CatchAllNavigate, UnsavedChangesNotifier, DocumentTitleHandler } from "@refinedev/react-router-v6";
-//import dataProvider from "@refinedev/simple-rest";
+import dataProvider from "@refinedev/simple-rest";
 import { ColorModeContextProvider } from "./contexts/color-mode";
-import { Header } from "./components/header";
+//import { Header } from "./components/header";
 import { MuiInferencer } from "@refinedev/inferencer/mui";
-import {dataProvider} from "./providers/data-provider";
+// import {dataProvider} from "./providers/data-provider";
 import axios, {AxiosRequestConfig} from "axios";
 import {API_URL, TOKEN_KEY} from "./constants";
+import {Header, Layout, Sider, Title} from "./components/layout";
+import {OffLayoutArea} from "./components/offLayoutArea";
 
 const axiosInstance = axios.create();
 axiosInstance.interceptors.request.use((request: AxiosRequestConfig) => {
@@ -48,7 +50,10 @@ function App() {
                     <RefineSnackbarProvider>
                         <Refine
                             routerProvider={routerBindings}
-                            dataProvider={dataProvider(API_URL, axiosInstance)}
+                            //dataProvider={dataProvider(API_URL, axiosInstance)}
+                            dataProvider={dataProvider(
+                                "https://api.fake-rest.refine.dev",
+                            )}
                             options={{
                                     syncWithLocation: true,
                                     warnWhenUnsavedChanges: true,
@@ -66,9 +71,18 @@ function App() {
                         >
                             <Routes>
                                 <Route element={
-                                  <ThemedLayoutV2>
-                                      <Outlet />
-                                  </ThemedLayoutV2>
+                                  // <ThemedLayoutV2>
+                                  //     <Outlet />
+                                  // </ThemedLayoutV2>
+                                    <Layout
+                                        Header={Header}
+                                        Title={Title}
+                                        Sider={Sider}
+                                        OffLayoutArea={OffLayoutArea}
+                                    >
+                                        <Outlet/>
+                                    </Layout>
+
                                 } >
                                     <Route index element={<NavigateToResource resource="blog_posts" />} />
                                     <Route path="blog-posts">

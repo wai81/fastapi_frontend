@@ -7572,6 +7572,11 @@ jsonpointer@^5.0.0:
     object.assign "^4.1.4"
     object.values "^1.1.6"
 
+jwt-decode@^3.1.2:
+  version "3.1.2"
+  resolved "https://registry.yarnpkg.com/jwt-decode/-/jwt-decode-3.1.2.tgz#3fb319f3675a2df0c2895c8f5e9fa4b67b04ed59"
+  integrity sha512-UfpWE/VZn0iP50d8cz9NrZLM9lSWhcJ+0Gt/nm4by88UL+J1SiKN8/5dkjMmbEzwL2CAe+67GsegCbIKtbp75A==
+
 kbar@^0.1.0-beta.40:
   version "0.1.0-beta.43"
   resolved "https://registry.yarnpkg.com/kbar/-/kbar-0.1.0-beta.43.tgz#1e85e9eedee6f6df93d84421d56b67b1475ca3e1"

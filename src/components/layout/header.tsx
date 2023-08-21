@@ -30,7 +30,7 @@ export const Header: React.FC = () => {
             elevation={1}
             sx={{
               borderRadius: 2,
-              boxShadow: 1,
+              boxShadow: 5,
               left: "220px",
               width: "calc(100% - 35px)",
               //marginTop: 0.2,
