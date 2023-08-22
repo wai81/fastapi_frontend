@@ -9,8 +9,9 @@ export interface IUser {
   is_superuser: boolean;
   is_active: boolean;
   avatar?: string;
-  // organization_id: number;
+  organization_id?: number;
   // access_tors: [IOrganization];
+  creator_id?: string;
   created_at: string;
 }
 
@@ -21,7 +22,7 @@ export interface ICreateUser {
   patronymic: string;
   password: string;
   avatar?: string;
-  organization_id: number;
+  organization_id?: number;
 }
 
 export interface IUpdateUser {
@@ -38,15 +39,6 @@ export interface IUpdateUser {
 
 export interface IUserFilterVariables{
   q?: string
-  organization?: string;
+  organization_id?: number;
   //is_active?: boolean;
-}
-
-export interface IUserRole {
-  options: Array<string>;
-  checkeds: Array<string>;
-}
-
-export interface IUserRoleUpdate {
-  checkeds?: Array<string>;
 }

@@ -26,12 +26,12 @@ export const Header: React.FC = () => {
   const { data: user } = useGetIdentity<IUser>();
   return  (
     <AppBar color="default"
-            position="sticky"
+            position="relative"
             elevation={1}
             sx={{
               borderRadius: 2,
               boxShadow: 5,
-              left: "220px",
+              //left: "220px",
               width: "calc(100% - 35px)",
               //marginTop: 0.2,
               margin: 1,
