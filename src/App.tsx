@@ -5,7 +5,7 @@ import {
 } from '@refinedev/core';
 import { RefineKbar, RefineKbarProvider } from "@refinedev/kbar";
 
-import { AuthPage,ErrorComponent
+import {ErrorComponent
 ,notificationProvider
 ,RefineSnackbarProvider
 ,ThemedLayoutV2} from '@refinedev/mui';
@@ -30,6 +30,7 @@ import {Business, AdminPanelSettings, AccountCircle, Settings} from "@mui/icons-
 import {useTranslation} from "react-i18next";
 import {authProvider} from "./providers/auth-provider";
 import { UserList } from 'pages/users';
+import {AuthPage} from "pages/auth";
 
 const axiosInstance = axios.create();
 axiosInstance.interceptors.request.use((request: AxiosRequestConfig) => {
@@ -116,20 +117,40 @@ function App() {
                             ]}
                         >
                             <Routes>
+                                {/* маршрутизация для страницы логина   */}
+                                <Route
+                                        element={
+                                            <Authenticated fallback={<Outlet/>}>
+                                                <NavigateToResource />
+                                            </Authenticated>
+                                        }
+                                    >
+                                        <Route
+                                            path="/login"
+                                            element={<AuthPage type="login" />}
+                                        />
+                                    </Route>
                                 <Route element={
-                                  // <ThemedLayoutV2>
-                                  //     <Outlet />
-                                  // </ThemedLayoutV2>
-                                    <Layout
+                                    <Authenticated 
+                                        redirectOnFail={"/login"}
+                                    >
+                                     <ThemedLayoutV2 
                                         Header={Header}
                                         Title={Title}
                                         Sider={Sider}
-                                        OffLayoutArea={OffLayoutArea}
-                                    >
-                                        <Outlet/>
-                                    </Layout>
-
-                                } >
+                                     >
+                                        <Outlet />
+                                     </ThemedLayoutV2>
+                                        {/* <Layout
+                                            Header={Header}
+                                            Title={Title}
+                                            Sider={Sider}
+                                            OffLayoutArea={OffLayoutArea}
+                                        >
+                                            <Outlet/>
+                                        </Layout> */}
+                                    </Authenticated>}
+                                >
                                     {/* <Route index element={<NavigateToResource resource="blog_posts" />} /> */}
                                     {/* <Route path="blog-posts">
                                         <Route index element={<MuiInferencer />} />
