@@ -156,6 +156,9 @@
   "booking-transport": {
     "booking-transport":"Бронь транспорта"
   },
+  "admin": {
+    "admin":"Администрирование"
+  },
 
   "users": {
     "users": "Пользователи",

@@ -10,6 +10,7 @@ import { AuthPage,ErrorComponent
 ,RefineSnackbarProvider
 ,ThemedLayoutV2} from '@refinedev/mui';
 
+
 import GlobalStyles from "@mui/material/GlobalStyles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { BrowserRouter, Route, Routes, Outlet } from "react-router-dom";
@@ -23,6 +24,10 @@ import axios, {AxiosRequestConfig} from "axios";
 import {API_URL, TOKEN_KEY} from "./constants";
 import {Header, Layout, Sider, Title} from "./components/layout";
 import {OffLayoutArea} from "./components/offLayoutArea";
+
+import {Business, AdminPanelSettings, AccountCircle, Settings} from "@mui/icons-material/";
+import {useTranslation} from "react-i18next";
+import {authProvider} from "./providers/auth-provider";
 
 const axiosInstance = axios.create();
 axiosInstance.interceptors.request.use((request: AxiosRequestConfig) => {
@@ -41,6 +46,13 @@ axiosInstance.interceptors.request.use((request: AxiosRequestConfig) => {
 
 
 function App() {
+    const {t, i18n} = useTranslation();
+    const token = localStorage.getItem(TOKEN_KEY);
+    const i18nProvider = {
+        translate: (key: string, params: object) => t(key, params),
+        changeLocale: (lang: string) => i18n.changeLanguage(lang),
+        getLocale: () => i18n.language,
+    };
     return (
         <BrowserRouter>
             <RefineKbarProvider>
@@ -49,11 +61,13 @@ function App() {
                     <GlobalStyles styles={{ html: { WebkitFontSmoothing: "auto" } }} />
                     <RefineSnackbarProvider>
                         <Refine
-                            routerProvider={routerBindings}
                             //dataProvider={dataProvider(API_URL, axiosInstance)}
                             dataProvider={dataProvider(
                                 "https://api.fake-rest.refine.dev",
                             )}
+                            routerProvider={routerBindings}
+                            i18nProvider={i18nProvider}
+                            authProvider={authProvider(axiosInstance)}
                             options={{
                                     syncWithLocation: true,
                                     warnWhenUnsavedChanges: true,
@@ -66,7 +80,36 @@ function App() {
                                     show: "/blog-posts/show/:id",
                                     create: "/blog-posts/create",
                                     edit: "/blog-posts/edit/:id",
-                                }
+                                },{
+                                    name: "settings",
+                                    meta: {
+                                        icon: <Settings/>,                                   },
+                                },{
+                                    name: "organizations",
+                                    list: "/settings/organizations",
+                                    create: "/settings/organizations/create",
+                                    edit: "/settings/organizations/edit/:id",
+                                    show: "/settings/organizations/show/:id",
+                                    meta: {
+                                        icon: <Business/>,
+                                        parent: "settings",
+                                    },
+                                },{
+                                    name: "admin",
+                                    meta: {
+                                        icon: <AdminPanelSettings/>,
+                                    },
+                                },{
+                                    name: "users",
+                                    list: "/admin/users",
+                                    create: "/admin/users/create",
+                                    edit: "/admin/users/edit/:id",
+                                    show: "/admin/users/show/:id",
+                                    meta: {
+                                        icon: <AccountCircle/>,
+                                        parent: "admin",
+                                    },
+                                },
                             ]}
                         >
                             <Routes>
