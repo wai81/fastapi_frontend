@@ -8,104 +8,88 @@ import {
     DateField,
 } from "@refinedev/mui";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
-import {
-    IResourceComponentsProps,
-    useTranslate,
-    useMany,
-} from "@refinedev/core";
+import { IResourceComponentsProps, useMany, useTranslate } from "@refinedev/core";
 import { Checkbox } from "@mui/material";
-import {IUser} from "../../interfaces/IUser";
 
-export const UserList: React.FC<IResourceComponentsProps> = () => {
+export const OrganizationList: React.FC<IResourceComponentsProps> = () => {
     const t = useTranslate();
     const { dataGridProps } = useDataGrid();
+    
+    const { data: userData, isLoading: userIsLoading } =
+    useMany({
+        resource: "users",
+        ids:
+            dataGridProps?.rows?.map(
+                (item: any) => item?.creator_id,
+            ) ?? [],
+        queryOptions: {
+            enabled: !!dataGridProps?.rows,
+        },
+    });
 
-    const { data: organizationData, isLoading: organizationIsLoading } =
-        useMany({
-            resource: "organizations",
-            ids:
-                dataGridProps?.rows?.map(
-                    (item: any) => item?.organization_id,
-                ) ?? [],
-            queryOptions: {
-                enabled: !!dataGridProps?.rows,
-            },
-        });
-
-    const columns = React.useMemo<GridColDef<IUser>[]>(
+    const columns = React.useMemo<GridColDef[]>(
         () => [
             {
-                field: "username",
-                flex: 1,
-                headerName: t("users.fields.username"),
-                minWidth: 200,
-            },
-            {
-                field: "last_name",
-                flex: 1,
-                headerName: t("users.fields.last_name"),
-                minWidth: 200,
-            },
-            {
-                field: "first_name",
-                flex: 1,
-                headerName: t("users.fields.first_name"),
-                minWidth: 200,
-            },
-            {
-                field: "patronymic",
-                flex: 1,
-                headerName: t("users.fields.patronymic"),
-                minWidth: 200,
-            },
-            {
-                field: "is_superuser",
-                headerName: t("users.fields.is_superuser"),
-                minWidth: 100,
-                renderCell: function render({ value }) {
-                    return <Checkbox checked={!!value} />;
-                },
-            },
-            {
-                field: "is_active",
-                headerName: t("users.fields.is_active"),
-                minWidth: 100,
-                renderCell: function render({ value }) {
-                    return <Checkbox checked={!!value} />;
-                },
-            },
-            {
                 field: "id",
-                headerName: t("users.fields.id"),
+                headerName: t("organizations.fields.id"),
+                type: "number",
                 minWidth: 50,
             },
             {
-                field: "organization_id",
+                field: "title",
                 flex: 1,
-                headerName: t("users.fields.organization.title"),
-                minWidth: 300,
+                headerName: t("organizations.fields.title"),
+                minWidth: 200,
+            },
+            {
+                field: "fullname",
+                flex: 1,
+                headerName: t("organizations.fields.fullname"),
+                minWidth: 200,
+            },
+            {
+                field: "nom_unp",
+                flex: 1,
+                headerName: t("organizations.fields.nom_unp"),
+                type: "string",
+                minWidth: 50,
+            },
+            {
+                field: "is_active",
+                headerName: t("organizations.fields.is_active"),
+                minWidth: 100,
+                renderCell: function render({ value }) {
+                    return <Checkbox checked={!!value} />;
+                },
+            },
+            {
+                field: "creator",
+                flex: 1,
+                headerName: t("organizations.fields.creator_id"),
+                type: "string",
+                minWidth: 100,
                 valueGetter: ({row})=>{
-                    const value = row?.organization_id;
+                    const value = row?.creator_id;
                     return value;
                 },
                 renderCell: function({value}) {
-                    return organizationIsLoading ? (
+                    return userIsLoading ? (
                         <>{t("loading")}</>
                     ):( value === 0 ? 
                         (''):
-                        (organizationData?.data.find((item)=> item.id === value)?.title)
+                        (userData?.data.find((item)=> item.id === value)?.username)
                     );
                 }
             },
             {
                 field: "created_at",
                 flex: 1,
-                headerName: t("users.fields.created_at"),
-                minWidth: 250,
+                headerName: t("organizations.fields.created_at"),
+                minWidth: 50,
                 renderCell: function render({ value }) {
                     return <DateField value={value} />;
                 },
-            },
+            },       
             {
                 field: "actions",
                 headerName: t("table.actions"),
@@ -123,7 +107,7 @@ export const UserList: React.FC<IResourceComponentsProps> = () => {
                 minWidth: 80,
             },
         ],
-        [t, organizationIsLoading, organizationData?.data],
+        [t, userData?.data, userIsLoading],
     );
 
     return (

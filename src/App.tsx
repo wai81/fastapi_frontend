@@ -24,7 +24,7 @@ import {dataProvider} from "./providers/data-provider";
 // import dataProvider from "@refinedev/simple-rest";
 import axios, {AxiosRequestConfig} from "axios";
 import {API_URL, TOKEN_KEY} from "./constants";
-//import {Header, Layout, Sider, Title} from "./components/layout_v1";
+import {Header, Layout, Sider, Title} from "./components/layout_v1";
 import {OffLayoutArea} from "./components/offLayoutArea";
 
 import {Business, AdminPanelSettings, AccountCircle, Settings} from "@mui/icons-material/";
@@ -36,6 +36,7 @@ import { ThemedLayoutV2} from 'components/themedLayout';
 import { ThemedHeaderV2 } from 'components/themedLayout/header';
 import { ThemedTitleV2 } from 'components/themedLayout/title';
 import { ThemedSiderV2 } from 'components/themedLayout/sider';
+import { OrganizationCreate, OrganizationEdit, OrganizationList, OrganizationShow } from 'pages/organizations';
 
 const axiosInstance = axios.create();
 axiosInstance.interceptors.request.use((request: AxiosRequestConfig) => {
@@ -139,10 +140,17 @@ function App() {
                                     <Authenticated 
                                         redirectOnFail={"/login"}
                                     >
-                                     <ThemedLayoutV2 
+                                     {/* <ThemedLayoutV2 
                                         Header={ThemedHeaderV2}
                                         Title={ThemedTitleV2}
                                         Sider={ThemedSiderV2}
+                                     >
+                                        <Outlet />
+                                     </ThemedLayoutV2> */}
+                                     <ThemedLayoutV2 
+                                        Header={Header}
+                                        Title={Title}
+                                        Sider={Sider}
                                      >
                                         <Outlet />
                                      </ThemedLayoutV2>
@@ -188,18 +196,18 @@ function App() {
                                         />
                                     </Route>
                                     <Route path="settings/organizations">
-                                        <Route index element={<MuiInferencer />} />
+                                        <Route index element={<OrganizationList />} />
                                         <Route
                                             path="show/:id"
-                                            element={<MuiInferencer />}
+                                            element={<OrganizationShow />}
                                         />
                                         <Route
                                             path="edit/:id"
-                                            element={<MuiInferencer />}
+                                            element={<OrganizationEdit />}
                                         />
                                         <Route
                                             path="create"
-                                            element={<MuiInferencer />}
+                                            element={<OrganizationCreate />}
                                         />
                                     </Route>
                                     <Route path="*" element={<ErrorComponent />} />

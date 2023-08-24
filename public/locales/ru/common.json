@@ -203,11 +203,14 @@
       "id": "№ ТОР",
       "title": "Наименование",
       "fullname": "Полное Наименование",
+      "nom_unp":"УНП",
       "is_active": "Статус",
       "status": {
         "enable": "Активен",
         "disable": "Не активен"
       },
+      "head_organization":"Основная организация",
+      "creator_id":"Cоздал",
       "created_at": "Cоздан"
     },
     "titles": {

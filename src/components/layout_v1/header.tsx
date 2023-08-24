@@ -31,11 +31,9 @@ export const Header: React.FC = () => {
             sx={{
               borderRadius: 2,
               boxShadow: 5,
-              //left: "220px",
-              width: "calc(100% - 35px)",
-              //marginTop: 0.2,
+              width: "calc(100% - 45px)",
               margin: 1,
-              // padding: 1
+              marginLeft: 3,
             }}
     >
       <Toolbar>
