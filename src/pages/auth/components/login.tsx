@@ -29,7 +29,7 @@ import {
   Link as MuiLink,
 } from "@mui/material";
 import { Stack } from "@mui/system";
-import { Title } from "components/layout";
+import { Title } from "components/layout_v1";
 
 type LoginProps = LoginPageProps<BoxProps, CardContentProps, FormPropsType>;
 
