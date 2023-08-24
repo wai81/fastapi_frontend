@@ -21,7 +21,7 @@ import {
   BoxProps,
   CardContentProps,
 } from "@mui/material";
-import { Title } from "components/layout";
+import { Title } from "components/layout_v1";
 
 type UpdatePasswordProps = UpdatePasswordPageProps<
   BoxProps,

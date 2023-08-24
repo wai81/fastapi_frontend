@@ -8,7 +8,8 @@ import { RefineKbar, RefineKbarProvider } from "@refinedev/kbar";
 import {ErrorComponent
 ,notificationProvider
 ,RefineSnackbarProvider
-,ThemedLayoutV2} from '@refinedev/mui';
+// ,ThemedLayoutV2
+} from '@refinedev/mui';
 
 
 import GlobalStyles from "@mui/material/GlobalStyles";
@@ -23,7 +24,7 @@ import {dataProvider} from "./providers/data-provider";
 // import dataProvider from "@refinedev/simple-rest";
 import axios, {AxiosRequestConfig} from "axios";
 import {API_URL, TOKEN_KEY} from "./constants";
-import {Header, Layout, Sider, Title} from "./components/layout";
+//import {Header, Layout, Sider, Title} from "./components/layout_v1";
 import {OffLayoutArea} from "./components/offLayoutArea";
 
 import {Business, AdminPanelSettings, AccountCircle, Settings} from "@mui/icons-material/";
@@ -31,6 +32,10 @@ import {useTranslation} from "react-i18next";
 import {authProvider} from "./providers/auth-provider";
 import { UserList } from 'pages/users';
 import {AuthPage} from "pages/auth";
+import { ThemedLayoutV2} from 'components/themedLayout';
+import { ThemedHeaderV2 } from 'components/themedLayout/header';
+import { ThemedTitleV2 } from 'components/themedLayout/title';
+import { ThemedSiderV2 } from 'components/themedLayout/sider';
 
 const axiosInstance = axios.create();
 axiosInstance.interceptors.request.use((request: AxiosRequestConfig) => {
@@ -135,9 +140,9 @@ function App() {
                                         redirectOnFail={"/login"}
                                     >
                                      <ThemedLayoutV2 
-                                        Header={Header}
-                                        Title={Title}
-                                        Sider={Sider}
+                                        Header={ThemedHeaderV2}
+                                        Title={ThemedTitleV2}
+                                        Sider={ThemedSiderV2}
                                      >
                                         <Outlet />
                                      </ThemedLayoutV2>

@@ -27,7 +27,7 @@ import {
   Link as MuiLink,
   Stack,
 } from "@mui/material";
-import { Title } from "components/layout";
+import { Title } from "components/layout_v1";
 
 type RegisterProps = RegisterPageProps<
   BoxProps,
