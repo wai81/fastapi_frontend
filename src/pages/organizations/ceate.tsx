@@ -81,7 +81,7 @@ export const OrganizationCreate: React.FC<IResourceComponentsProps> = () => {
                 />
                 <TextField
                     {...register("fullname", {
-                        required: "This field is required",
+                        required: t('required.field'),
                     })}
                     error={!!(errors as any)?.fullname}
                     helperText={(errors as any)?.fullname?.message}
@@ -92,10 +92,10 @@ export const OrganizationCreate: React.FC<IResourceComponentsProps> = () => {
                     label={t("organizations.fields.fullname")}
                     name="fullname"
                 />
-                {/* <Controller
+                <Controller
                     control={control}
                     name="head_organization_id"
-                    rules={{ required: "This field is required" }}
+                    //rules={{ required: "This field is required" }}
                     // eslint-disable-next-line
                     defaultValue={null as any}
                     render={({ field }) => (
@@ -125,7 +125,7 @@ export const OrganizationCreate: React.FC<IResourceComponentsProps> = () => {
                                 <TextField
                                     {...params}
                                     label={t(
-                                        "organizations.fields.head_organization_id"
+                                        "organizations.fields.head_organization"
                                     )}
                                     margin="normal"
                                     variant="outlined"
@@ -134,12 +134,12 @@ export const OrganizationCreate: React.FC<IResourceComponentsProps> = () => {
                                         (errors as any)?.head_organization_id
                                             ?.message
                                     }
-                                    required
+                                    //required
                                 />
                             )}
                         />
                     )}
-                /> */}
+                />
                 <Controller
                     control={control}
                     name="is_active"

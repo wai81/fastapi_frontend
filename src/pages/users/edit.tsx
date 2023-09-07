@@ -7,7 +7,7 @@ import {
 } from "@mui/material";
 import Autocomplete from "@mui/material/Autocomplete";
 import { useForm } from "@refinedev/react-hook-form";
-import { IResourceComponentsProps, useTranslate } from "@refinedev/core";
+import { CrudFilters, IResourceComponentsProps, useTranslate } from "@refinedev/core";
 import { Controller } from "react-hook-form";
 
 export const UserEdit: React.FC<IResourceComponentsProps> = () => {
@@ -25,6 +25,15 @@ export const UserEdit: React.FC<IResourceComponentsProps> = () => {
     const { autocompleteProps: organizationAutocompleteProps } =
         useAutocomplete({
             resource: "organizations",
+            onSearch: (value) => {
+                const filters: CrudFilters = [];
+                filters.push({
+                  field: "q",
+                  operator: "eq",
+                  value: value.length > 0 ? value : undefined,
+                });
+                return filters;
+              },
             defaultValue: usersData?.organization_id,
         });
 
