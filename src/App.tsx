@@ -1,6 +1,5 @@
 import { 
     Refine,
-    WelcomePage,
     Authenticated, 
 } from '@refinedev/core';
 import { RefineKbar, RefineKbarProvider } from "@refinedev/kbar";
@@ -15,7 +14,7 @@ import {ErrorComponent
 import GlobalStyles from "@mui/material/GlobalStyles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { BrowserRouter, Route, Routes, Outlet } from "react-router-dom";
-import routerBindings, { NavigateToResource, CatchAllNavigate, UnsavedChangesNotifier, DocumentTitleHandler } from "@refinedev/react-router-v6";
+import routerBindings, { NavigateToResource, UnsavedChangesNotifier, DocumentTitleHandler } from "@refinedev/react-router-v6";
 
 import { ColorModeContextProvider } from "./contexts/color-mode";
 //import { Header } from "./components/header";
@@ -24,18 +23,15 @@ import {dataProvider} from "./providers/data-provider";
 // import dataProvider from "@refinedev/simple-rest";
 import axios, {AxiosRequestConfig} from "axios";
 import {API_URL, TOKEN_KEY} from "./constants";
-import {Header, Layout, Sider, Title} from "./components/layout_v1";
-import {OffLayoutArea} from "./components/offLayoutArea";
+import {Header, Sider, Title} from "./components/layout_v1";
 
 import {Business, AdminPanelSettings, AccountCircle, Settings} from "@mui/icons-material/";
 import {useTranslation} from "react-i18next";
 import {authProvider} from "./providers/auth-provider";
-import { UserList } from 'pages/users';
+import {UserEdit, UserList } from 'pages/users';
 import {AuthPage} from "pages/auth";
 import { ThemedLayoutV2} from 'components/themedLayout';
-import { ThemedHeaderV2 } from 'components/themedLayout/header';
-import { ThemedTitleV2 } from 'components/themedLayout/title';
-import { ThemedSiderV2 } from 'components/themedLayout/sider';
+
 import { OrganizationCreate, OrganizationEdit, OrganizationList, OrganizationShow } from 'pages/organizations';
 
 const axiosInstance = axios.create();
@@ -188,7 +184,8 @@ function App() {
                                         />
                                         <Route
                                             path="edit/:id"
-                                            element={<MuiInferencer />}
+                                            element={<UserEdit />}
+                                            //element={<MuiInferencer />}
                                         />
                                         <Route
                                             path="create"

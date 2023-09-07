@@ -164,7 +164,7 @@
     "users": "Пользователи",
     "fields": {
       "id": "Id",
-      "image": "Изображение транспорта",
+      "avatar": "Изображение",
       "image_description": "Фото пользователя",
       "image_validation": "480х480 px",
       "username": "Имя Пользователя",

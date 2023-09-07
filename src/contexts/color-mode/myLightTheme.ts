@@ -1,6 +1,6 @@
 import {LightTheme} from "@refinedev/mui";
 import {indigo, neutral} from "./colors";
-import {common} from "@mui/material/colors";
+// import {common} from "@mui/material/colors";
 import {alpha} from "@mui/material/styles";
 
 export const overridedLightTheme = {

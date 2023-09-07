@@ -14,21 +14,22 @@ export const OrganizationCreate: React.FC<IResourceComponentsProps> = () => {
         formState: { errors },
     } = useForm();
 
-    const { autocompleteProps: organizationAutocompleteProps } = useAutocomplete({
-    resource: "organizations",
+    const { autocompleteProps: organizationAutocompleteProps } =
+      useAutocomplete({
+        resource: "organizations",
 
-    onSearch: (value) => {
-      const filters: CrudFilters = [];
-      filters.push({
-        field: "q",
-        operator: "eq",
-        value: value.length > 0 ? value : undefined,
+        onSearch: (value) => {
+          const filters: CrudFilters = [];
+          filters.push({
+            field: "q",
+            operator: "eq",
+            value: value.length > 0 ? value : undefined,
+          });
+          return filters;
+        },
+
+        sorters: [{ field: "id", order: "asc" }],
       });
-      return filters;
-    },
-
-    sorters: [{ field: "id", order: "asc" }],
-  });
 
     return (
         <Create isLoading={formLoading} saveButtonProps={saveButtonProps}>
